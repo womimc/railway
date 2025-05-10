@@ -1,12 +1,9 @@
-FROM --platform=linux/amd64 ubuntu:22.04
-ENV DEBIAN_FRONTEND=noninteractive
+FROM --platform=linux/amd64 node:18-slim
 RUN apt-get update && apt-get install -y \
-    wget \
-    curl \
-    sudo \
-    net-tools \
-    bash \
-    && wget -O /usr/local/bin/gotty https://github.com/yudai/gotty/releases/download/v0.1.4/gotty_linux_amd64 \
-    && chmod +x /usr/local/bin/gotty
-EXPOSE 8080
-CMD ["gotty", "--port", "8080", "--permit-write", "/bin/bash"]
+    openssh-client \
+    openssh-server \
+    && mkdir /run/sshd
+RUN npm install -g wetty
+RUN useradd -ms /bin/bash user && echo "user:user" | chpasswd
+EXPOSE 3000
+CMD service ssh start && wetty --ssh-host=localhost --ssh-user=user --port=3000
