@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && \
-    apt install -y shellinabox openssh-server && \
+    apt install -y shellinabox openssh-server sudo && \
     mkdir /var/run/sshd
 
 RUN useradd -m user && echo "user:2ws3ed" | chpasswd
