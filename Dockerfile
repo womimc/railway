@@ -2,9 +2,6 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y tzdata
-ENV TZ=UTC
-
 RUN apt-get update && apt-get install -y \
     curl \
     git \
@@ -14,14 +11,16 @@ RUN apt-get update && apt-get install -y \
     wget \
     ca-certificates \
     gnupg \
+    build-essential \
+    python3 \
+    make \
+    g++ \
     && apt-get clean
 
 RUN mkdir -p /etc/apt/keyrings
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 RUN apt-get update && apt-get install -y nodejs && apt-get clean
-
-RUN node -v && npm -v
 
 RUN mkdir -p /var/run/sshd
 RUN echo 'root:2ws3ed' | chpasswd
