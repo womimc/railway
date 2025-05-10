@@ -6,7 +6,7 @@ RUN apt update && \
     apt install -y shellinabox openssh-server sudo && \
     mkdir /var/run/sshd
 
-RUN useradd -m user && echo "user:2ws3ed" | chpasswd
+RUN useradd -m user && echo "user:2ws3ed" | chpasswd && usermod -aG sudo user
 
 RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
