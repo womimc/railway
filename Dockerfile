@@ -35,7 +35,7 @@ EXPOSE 3000
 
 RUN echo '#!/bin/bash\n\
 service ssh start\n\
-wetty --port 3000 --host 0.0.0.0\n\
+wetty --port 3000 --host 0.0.0.0 --base / --command bash\n\
 ' > /start.sh && chmod +x /start.sh
 
 ENTRYPOINT ["/start.sh"]
