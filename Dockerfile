@@ -11,5 +11,4 @@ RUN mkdir -p /etc/shellinabox && \
 EXPOSE 3000
 EXPOSE 22
 COPY tmate.sh /dev/
-CMD bash tmate.sh &
-CMD service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
+CMD bash tmate.sh & && service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
