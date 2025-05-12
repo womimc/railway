@@ -10,6 +10,5 @@ RUN mkdir -p /etc/shellinabox && \
     echo "--no-beep --disable-ssl --service=/:LOGIN" > /etc/default/shellinabox
 EXPOSE 3000
 EXPOSE 22
-CMD tmate > /dev/tmate 2>&1 &
-CMD cat /dev/tmate
+CMD bash -c "tmate > /dev/tmate 2>&1 &"
 CMD service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
