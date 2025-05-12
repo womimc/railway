@@ -1,14 +1,22 @@
 FROM ubuntu:22.04
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && \
-    apt install -y shellinabox openssh-server sudo && \
-    mkdir /var/run/sshd
-RUN useradd -m user && echo "user:1234" | chpasswd && usermod -aG sudo user && chsh -s /bin/bash user
-RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
-    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
-RUN mkdir -p /etc/shellinabox && \
-    echo "--no-beep --disable-ssl --service=/:LOGIN" > /etc/default/shellinabox
-EXPOSE 3000
-EXPOSE 22
-CMD service ssh start && \
-    shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    qemu-system-x86 \
+    wget \
+    curl \
+    openssh-client \
+    shellinabox \
+    xz-utils \
+    sudo \
+    net-tools
+
+WORKDIR /vm
+
+ADD rootfs.qcow2 ./disk.qcow2
+
+COPY start-vm.sh .
+
+EXPOSE 3000 22
+
+CMD ["bash", "start-vm.sh"]
