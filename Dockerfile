@@ -9,5 +9,4 @@ RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/
 RUN mkdir -p /etc/shellinabox && \
     echo "--no-beep --disable-ssl --service=/:LOGIN" > /etc/default/shellinabox
 EXPOSE 3000
-EXPOSE 22
-CMD su - user -c "tmate > ~/tmate 2>&1 &" && service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
+CMD service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
