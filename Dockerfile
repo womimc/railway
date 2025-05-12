@@ -16,6 +16,7 @@ WORKDIR /vm
 ADD rootfs.qcow2 ./disk.qcow2
 
 COPY start-vm.sh .
+RUN chmod +x start-vm.sh
 
 EXPOSE 3000 22
 
