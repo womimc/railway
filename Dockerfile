@@ -9,5 +9,5 @@ RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/
 RUN mkdir -p /etc/shellinabox && \
     echo "--no-beep --disable-ssl --service=/:LOGIN" > /etc/default/shellinabox
 RUN echo "tmate -S /tmp/tmate.sock new-session -d && \\" > /home/user/tmate.sh && echo "tmate -S /tmp/tmate.sock wait tmate-ready && \\" >> /home/user/tmate.sh && echo "echo \"SSH session:     \$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')\" && \\" >> /home/user/tmate.sh && echo "echo \"Read-only SSH:   \$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh_ro}')\" && \\" >> /home/user/tmate.sh && echo "echo \"Web session:     \$(tmate -S /tmp/tmate.sock display -p '#{tmate_web}')\" && \\" >> /home/user/tmate.sh && echo "echo \"Web read-only:   \$(tmate -S /tmp/tmate.sock display -p '#{tmate_web_ro}')\"" >> /home/user/tmate.sh
-EXPOSE 3000
-CMD service ssh start && shellinaboxd --port=3000 --disable-ssl --no-beep --service=/:LOGIN
+EXPOSE 9999
+CMD service ssh start && shellinaboxd --port=9999 --disable-ssl --no-beep --service=/:LOGIN
